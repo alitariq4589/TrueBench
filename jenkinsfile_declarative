@@ -1,7 +1,10 @@
 pipeline{
 	agent{label "Runner2"}
-	checkout scm
+	
 	stages{
+		stage ('*** Cloning Repository ***'){
+			checkout scm
+		}
 		stage ('*** Testing on x86_64 ***'){
 			steps{
 				step ('** Compiling **'){
