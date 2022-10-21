@@ -25,7 +25,7 @@ pipeline{
 					gcc truebench.c -o truebench_riscv
 				''', label:"Compilation"
 				sh script:'''#/bin/bash
-					qemu-riscv64 -L $RISCV_SYSROOT ./trubench_riscv
+					qemu-riscv64 -L $RISCV_SYSROOT ./truebench_riscv
 				''',label: "Execution"
 			}
 		}
