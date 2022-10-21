@@ -14,7 +14,7 @@ pipeline{
 					gcc truebench.c -o truebench_x86
 				''',label:"Compilation"
 				sh script:'''#/bin/bash
-					echo $(./truebench_x86) | tee truebench_x86.log
+					echo -e $(./truebench_x86) | tee truebench_x86.log
 				''', label:"Execution"
 			}
 		}
@@ -25,7 +25,7 @@ pipeline{
 					riscv64-unknown-linux-gnu-gcc truebench.c -o truebench_riscv
 				''', label:"Compilation"
 				sh script:'''#/bin/bash
-					echo $(qemu-riscv64 -L $RISCV_SYSROOT ./truebench_riscv) | tee truebench_riscv64.log
+					echo -e $(qemu-riscv64 -L $RISCV_SYSROOT ./truebench_riscv) | tee truebench_riscv64.log
 				''',label: "Execution"
 			}
 		}
