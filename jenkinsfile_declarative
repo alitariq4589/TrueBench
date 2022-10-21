@@ -1,0 +1,40 @@
+pipeline{
+	agent{label "Runner2"}
+	checkout scm
+	stages{
+		stage ('*** Testing on x86_64 ***'){
+			steps{
+				step ('** Compiling **'){
+					sh'''#!/bin/bash
+						echo -e "[jenkinsfile INFO]: Compiling for x86_64"
+						gcc truebench.c -o truebench_x86
+					'''
+				}
+				step ('** Executing **') {
+					sh'''#/bin/bash
+						./trubench_x86
+					'''
+				}
+			}
+		}
+		stage ('*** Testing on riscv64 linux (qemu) ***'){
+			steps{
+				step ('** Compiling **'){
+					sh'''#!/bin/bash
+						echo -e "[jenkinsfile INFO]: Compiling for riscv64 linux"
+						gcc truebench.c -o truebench_riscv
+					'''
+				}
+				step ('** Executing **') {
+					sh'''#/bin/bash
+						./trubench_riscv
+					'''
+				}
+			}
+		}
+	}
+	//post {
+       // always {
+      //      archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: true
+    //}
+}
