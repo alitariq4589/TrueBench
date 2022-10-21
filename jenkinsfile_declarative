@@ -8,7 +8,7 @@ pipeline{
 			}
 		}
 		stage ('*** Testing on x86_64 ***'){
-			steps{
+			steps(''){
 				step {
 					sh'''#!/bin/bash
 						echo -e "[jenkinsfile INFO]: Compiling for x86_64"
