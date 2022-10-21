@@ -14,7 +14,7 @@ pipeline{
 					gcc truebench.c -o truebench_x86
 				''',label:"Compilation"
 				sh script:'''#/bin/bash
-					./truebench_x86
+					echo $(./truebench_x86) | tee truebench_x86.log
 				''', label:"Execution"
 			}
 		}
@@ -25,13 +25,14 @@ pipeline{
 					riscv64-unknown-linux-gnu-gcc truebench.c -o truebench_riscv
 				''', label:"Compilation"
 				sh script:'''#/bin/bash
-					qemu-riscv64 -L $RISCV_SYSROOT ./truebench_riscv
+					echo $(qemu-riscv64 -L $RISCV_SYSROOT ./truebench_riscv) | tee truebench_riscv64.log
 				''',label: "Execution"
 			}
 		}
 	}
-	//post {
-       // always {
-      //      archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: true
-    //}
+	post {
+        always {
+		echo "\n[jenkinsfile INFO]: Results are stored in 'truebench_riscv64.log' and 'truebench_x86.log'. You can compare them at https://truebench.the-toffee-project.org/"
+            archiveArtifacts artifacts: '*.txt', onlyIfSuccessful: true
+    }
 }
