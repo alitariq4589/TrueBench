@@ -31,8 +31,9 @@ pipeline{
 		}
 	}
 	post {
-        always {
-		echo "\n[jenkinsfile INFO]: Results are stored in 'truebench_riscv64.log' and 'truebench_x86.log'. You can compare them at https://truebench.the-toffee-project.org/"
-            archiveArtifacts artifacts: '*.txt', onlyIfSuccessful: true
-    }
+        	always {
+			echo "\n[jenkinsfile INFO]: Results are stored in 'truebench_riscv64.log' and 'truebench_x86.log'. You can compare them at https://truebench.the-toffee-project.org/"
+            		archiveArtifacts artifacts: '*.txt', onlyIfSuccessful: true
+    		}
+	}
 }
