@@ -3,7 +3,9 @@ pipeline{
 	
 	stages{
 		stage ('*** Cloning Repository ***'){
-			checkout scm
+			steps{
+				checkout scm
+			}
 		}
 		stage ('*** Testing on x86_64 ***'){
 			steps{
