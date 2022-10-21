@@ -9,7 +9,7 @@ pipeline{
 		}
 		stage ('*** Testing on x86_64 ***'){
 			steps{
-				step ("** Compiling **"){
+				step {
 					sh'''#!/bin/bash
 						echo -e "[jenkinsfile INFO]: Compiling for x86_64"
 						gcc truebench.c -o truebench_x86
