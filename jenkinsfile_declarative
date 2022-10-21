@@ -12,21 +12,21 @@ pipeline{
 				sh script:'''#!/bin/bash
 					echo -e "[jenkinsfile INFO]: Compiling for x86_64"
 					gcc truebench.c -o truebench_x86
-				'''//,label:"Compilation"
-				sh'''#/bin/bash
+				''',label:"Compilation"
+				sh script:'''#/bin/bash
 					./truebench_x86
-				'''//, label:"Execution"
+				''', label:"Execution"
 			}
 		}
 		stage ('*** Testing on riscv64 linux (qemu) ***'){
 			steps{
-				sh'''#!/bin/bash
+				sh script:'''#!/bin/bash
 					echo -e "[jenkinsfile INFO]: Compiling for riscv64 linux"
 					gcc truebench.c -o truebench_riscv
-				'''//, label:"Compilation"
-				sh'''#/bin/bash
-					./trubench_riscv
-				'''//,label: "Execution"
+				''', label:"Compilation"
+				sh script:'''#/bin/bash
+					qemu-riscv64 -L $RISCV_SYSROOT ./trubench_riscv
+				''',label: "Execution"
 			}
 		}
 	}
