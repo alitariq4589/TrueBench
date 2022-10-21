@@ -9,12 +9,12 @@ pipeline{
 		}
 		stage ('*** Testing on x86_64 ***'){
 			steps(''){
-				sh'''#!/bin/bash
+				sh script:'''#!/bin/bash
 					echo -e "[jenkinsfile INFO]: Compiling for x86_64"
 					gcc truebench.c -o truebench_x86
 				'''//,label:"Compilation"
 				sh'''#/bin/bash
-					./trubench_x86
+					./truebench_x86
 				'''//, label:"Execution"
 			}
 		}
