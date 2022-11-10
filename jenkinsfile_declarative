@@ -18,7 +18,7 @@ pipeline{
 				''', label:"Execution"
 			}
 		}
-		stage ('*** Testing on riscv64 linux (qemu) ***'){
+		stage ('*** Test on qemu user-mode ***'){
 			steps{
 				sh script:'''#!/bin/bash
 					echo -e "[jenkinsfile INFO]: Compiling for riscv64 linux"
@@ -26,6 +26,18 @@ pipeline{
 				''', label:"Compilation"
 				sh script:'''#/bin/bash
 					echo -e $(qemu-riscv64 -L $RISCV_SYSROOT ./truebench_riscv) > truebench_riscv64.log
+				''',label: "Execution"
+			}
+		}
+		stage ('*** Test on qemu-system-riscv64 ***'){
+			agent {label "riscv64_runner1"}
+			steps{
+				sh script:'''#!/bin/bash
+					echo -e "[jenkinsfile INFO]: Compiling for riscv64 linux"
+					gcc truebench.c -o truebench_riscv
+				''', label:"Compilation"
+				sh script:'''#/bin/bash
+					echo -e $(./truebench_riscv) > truebench_riscv64.log
 				''',label: "Execution"
 			}
 		}
